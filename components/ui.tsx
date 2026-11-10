@@ -1,8 +1,15 @@
 import type { ReactNode } from "react";
 import { site } from "@/content/site";
 
+/** Side padding shared by the nav and every section, so edges line up. */
+export const gutter = "px-4 sm:px-8 lg:px-16 xl:px-24 2xl:px-32";
+
 export function Container({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <div className={`mx-auto w-full max-w-[1512px] px-4 sm:px-6 ${className}`}>{children}</div>;
+  return (
+    <div className={gutter}>
+      <div className={`mx-auto w-full max-w-[1510px] ${className}`}>{children}</div>
+    </div>
+  );
 }
 
 export const initials = (name: string) =>

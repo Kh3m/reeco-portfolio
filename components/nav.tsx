@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { services, site } from "@/content/site";
-import { Avatar, Icon } from "./ui";
+import { Avatar, Icon, gutter } from "./ui";
 
 const groups = [
   { ...services.build, icon: "monitor" as const },
@@ -34,8 +34,8 @@ export function Nav() {
   }, [mobileOpen]);
 
   return (
-    <header className="sticky top-3 z-50 px-4 sm:px-6">
-      <div className="mx-auto flex h-[66px] max-w-[1464px] items-center justify-between gap-4 rounded-full border border-white/60 bg-white/85 pl-2 pr-2 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.12)] backdrop-blur-xl">
+    <header className={`sticky top-3 z-50 ${gutter}`}>
+      <div className="mx-auto flex h-[66px] max-w-[1510px] items-center justify-between gap-4 rounded-full border border-white/60 bg-white/85 pl-2 pr-2 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.12)] backdrop-blur-xl">
         <a href="#top" className="flex items-center gap-3 text-lg font-bold tracking-tight">
           <Avatar size={48} />
           {site.name}

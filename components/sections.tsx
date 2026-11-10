@@ -41,7 +41,7 @@ export function Hero() {
           <div className="pointer-events-none absolute -bottom-40 -left-40 size-[36rem] rounded-full bg-lime/10 blur-[120px]" aria-hidden />
           <div className="pointer-events-none absolute -right-32 -top-40 size-[30rem] rounded-full bg-lime/[0.07] blur-[120px]" aria-hidden />
 
-          <div className="relative grid items-center gap-12 px-6 pb-12 pt-10 sm:px-12 sm:pt-16 lg:grid-cols-[1.05fr_1fr] lg:px-[70px] lg:pb-14 lg:pt-[70px]">
+          <div className="relative grid items-center gap-12 px-6 pb-12 pt-10 sm:px-12 sm:pt-16 lg:grid-cols-[1.05fr_1fr] lg:px-10 2xl:px-[70px] lg:pb-14 lg:pt-[70px]">
             <div>
               <div className="flex flex-wrap items-center gap-4">
                 {site.available && <StatusDot />}
@@ -72,14 +72,14 @@ export function Hero() {
 
           <dl className="relative grid grid-cols-2 border-t border-white/10 lg:grid-cols-4">
             {stats.map((s, i) => (
-              <div key={s.label} className={`flex flex-col-reverse px-6 py-8 sm:px-12 lg:px-[70px] ${i % 2 ? "border-l" : ""} ${i > 0 ? "lg:border-l" : ""} ${i > 1 ? "border-t lg:border-t-0" : ""} border-white/10`}>
+              <div key={s.label} className={`flex flex-col-reverse px-6 py-8 sm:px-12 lg:px-10 2xl:px-[70px] ${i % 2 ? "border-l" : ""} ${i > 0 ? "lg:border-l" : ""} ${i > 1 ? "border-t lg:border-t-0" : ""} border-white/10`}>
                 <dt className="text-white/60 sm:text-lg">{s.label}</dt>
-                <dd className="text-4xl font-extrabold tracking-tight text-lime sm:text-5xl">{s.value}</dd>
+                <dd className="whitespace-nowrap text-4xl font-extrabold tracking-tight text-lime sm:text-5xl">{s.value}</dd>
               </div>
             ))}
-            <div className="flex flex-col-reverse border-l border-t border-white/10 px-6 py-8 sm:px-12 lg:border-t-0 lg:px-[70px]">
+            <div className="flex flex-col-reverse border-l border-t border-white/10 px-6 py-8 sm:px-12 lg:border-t-0 lg:px-10 2xl:px-[70px]">
               <dt className="text-white/60 sm:text-lg">{site.timezoneLabel}</dt>
-              <dd className="text-4xl font-extrabold tracking-tight text-lime tabular-nums sm:text-5xl">
+              <dd className="whitespace-nowrap text-4xl font-extrabold tracking-tight text-lime tabular-nums sm:text-5xl">
                 <LocalTime timezone={site.timezone} />
               </dd>
             </div>
