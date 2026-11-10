@@ -1,26 +1,84 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #eceef2;
+  --card: #ffffff;
+  --ink: #0e0f11;
+  --dark: #121315;
+  --dark-2: #1b1c1f;
+  --muted: #5f636b;
+  --faint: #9aa0aa;
+  --line: #e3e5ea;
+  --chip: #f1f2f5;
+  --lime: #d4f43c;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-dark: var(--dark);
+  --color-dark-2: var(--dark-2);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-chip: var(--chip);
+  --color-lime: var(--lime);
+  --font-sans: var(--font-jakarta);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+  background: var(--bg);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--ink);
+  background-color: var(--bg);
+  background-image: radial-gradient(circle, #d3d6dc 1px, transparent 1.2px);
+  background-size: 28px 28px;
 }
+
+::selection {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+.dots-dark {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1.2px);
+  background-size: 26px 26px;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee { animation: marquee 50s linear infinite; }
+.marquee-reverse { animation: marquee 55s linear infinite reverse; }
+.marquee-mask {
+  mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+}
+
+@keyframes progress {
+  from { width: 0; }
+  to { width: 100%; }
+}
+.progress { animation: progress var(--duration, 5s) linear forwards; }
+
+.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.js .reveal.is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .marquee, .marquee-reverse { animation: none; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  .progress { animation: none; width: 100%; }
+}
+
+details > summary { list-style: none; }
+details > summary::-webkit-details-marker { display: none; }
