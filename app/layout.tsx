@@ -1,24 +1,38 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Manrope } from "next/font/google";
 import { site } from "@/content/site";
+import { Nav } from "@/components/nav";
+import { Footer } from "@/components/footer";
 import "./globals.css";
 
-const jakarta = Plus_Jakarta_Sans({ variable: "--font-jakarta", subsets: ["latin"] });
+const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: site.seo.title,
+  metadataBase: new URL(site.url),
+  title: { default: site.seo.title, template: `%s — ${site.brand}` },
   description: site.seo.description,
-  openGraph: { title: site.seo.title, description: site.seo.description, type: "website" },
+  openGraph: {
+    type: "website",
+    siteName: site.brand,
+    title: site.seo.title,
+    description: site.seo.description,
+    locale: "en_GB",
+  },
+  twitter: { card: "summary_large_image", title: site.seo.title, description: site.seo.description },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${jakarta.variable} antialiased`} suppressHydrationWarning>
+    <html lang="en" className={`${manrope.variable} antialiased`} suppressHydrationWarning>
       <head>
         {/* Enables scroll-reveal hiding only when JS runs, so content is never stuck invisible. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
       </head>
-      <body className="min-h-screen font-sans">{children}</body>
+      <body className="flex min-h-screen flex-col font-sans">
+        <Nav />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }

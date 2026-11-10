@@ -1,19 +1,24 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { services, site } from "@/content/site";
-import { Avatar, Icon, gutter } from "./ui";
-
-const groups = [
-  { ...services.build, icon: "monitor" as const },
-  { ...services.automate, icon: "bolt" as const },
-  { ...services.grow, icon: "trend" as const },
-];
+import { contact, industries, nav } from "@/content/site";
+import { Arrow, Logo, gutter } from "./ui";
 
 export function Nav() {
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  // Close menus on navigation.
+  const [lastPath, setLastPath] = useState(pathname);
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
+    setMenuOpen(false);
+    setMobileOpen(false);
+  }
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -33,83 +38,77 @@ export function Nav() {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
   }, [mobileOpen]);
 
+  const isActive = (href: string) => (href.startsWith("/industries") ? pathname.startsWith("/industries") : pathname === href);
+
   return (
     <header className={`sticky top-3 z-50 ${gutter}`}>
-      <div className="mx-auto flex h-[66px] max-w-[1510px] items-center justify-between gap-4 rounded-full border border-white/60 bg-white/85 pl-2 pr-2 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.12)] backdrop-blur-xl">
-        <a href="#top" className="flex items-center gap-3 text-lg font-bold tracking-tight">
-          <Avatar size={48} />
-          {site.name}
-        </a>
+      <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between gap-4 rounded-2xl border border-line bg-card/90 px-3 pl-4 shadow-[0_8px_30px_-12px_rgba(23,25,29,0.18)] backdrop-blur-xl">
+        <Link href="/" aria-label="ReeCo home">
+          <Logo />
+        </Link>
 
-        <nav className="hidden items-center gap-1 text-[17px] text-muted lg:flex" aria-label="Main">
-          <div ref={menuRef} className="relative">
-            <button
-              type="button"
-              onClick={() => setMenuOpen((o) => !o)}
-              aria-expanded={menuOpen}
-              className="flex items-center gap-1.5 rounded-full px-4 py-2 transition-colors hover:text-ink"
-            >
-              Services
-              <svg width="10" height="10" viewBox="0 0 10 10" className={`transition-transform ${menuOpen ? "rotate-180" : ""}`} aria-hidden>
-                <path d="M2 3.5l3 3 3-3" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" />
-              </svg>
-            </button>
-            {menuOpen && (
-              <div className="absolute left-1/2 top-full mt-4 w-[52rem] -translate-x-1/2 rounded-[28px] border border-line bg-card p-4 shadow-2xl shadow-black/10">
-                <div className="grid grid-cols-3 gap-3">
-                  {groups.map((g) => (
-                    <div key={g.label} className="rounded-2xl bg-chip/60 p-4">
-                      <div className="mb-3 flex items-center gap-2">
-                        <span className="grid size-8 place-items-center rounded-lg bg-card text-ink">
-                          <Icon name={g.icon} className="size-4" />
-                        </span>
-                        <span className="text-xs font-bold uppercase tracking-[0.08em] text-muted">{g.label}</span>
-                      </div>
-                      <ul>
-                        {g.items.map((s) => (
-                          <li key={s.title}>
-                            <a
-                              href={s.href ?? "#services"}
-                              onClick={() => setMenuOpen(false)}
-                              className="block rounded-lg px-2 py-2 text-[15px] font-semibold text-ink transition-colors hover:bg-card"
-                            >
-                              {s.title}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
+        <nav className="hidden items-center gap-1 text-[15px] font-medium lg:flex" aria-label="Main">
+          {nav.map((l) =>
+            l.children ? (
+              <div key={l.label} ref={menuRef} className="relative">
+                <button
+                  type="button"
+                  onClick={() => setMenuOpen((o) => !o)}
+                  aria-expanded={menuOpen}
+                  className={`flex items-center gap-1.5 rounded-lg px-3.5 py-2 transition-colors hover:text-ink ${isActive(l.href) ? "text-ink" : "text-muted"}`}
+                >
+                  {l.label}
+                  <svg width="10" height="10" viewBox="0 0 10 10" className={`transition-transform ${menuOpen ? "rotate-180" : ""}`} aria-hidden>
+                    <path d="M2 3.5l3 3 3-3" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" />
+                  </svg>
+                </button>
+                {menuOpen && (
+                  <div className="absolute left-1/2 top-full mt-3 w-[22rem] -translate-x-1/2 rounded-2xl border border-line bg-card p-2 shadow-2xl shadow-black/10">
+                    {industries.items.map((ind) => (
+                      <Link
+                        key={ind.slug}
+                        href={`/industries/${ind.slug}`}
+                        onClick={() => setMenuOpen(false)}
+                        className="block rounded-xl p-3 transition-colors hover:bg-bg"
+                      >
+                        <span className="block text-[15px] font-semibold text-ink">{ind.name}</span>
+                        <span className="mt-0.5 block text-[13px] leading-snug text-muted">{ind.short}</span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-          {site.nav.map((l) => (
-            <a key={l.label} href={l.href} className="rounded-full px-4 py-2 transition-colors hover:text-ink">
-              {l.label}
-            </a>
-          ))}
+            ) : (
+              <Link
+                key={l.label}
+                href={l.href}
+                className={`rounded-lg px-3.5 py-2 transition-colors hover:text-ink ${isActive(l.href) ? "text-ink" : "text-muted"}`}
+              >
+                {l.label}
+              </Link>
+            ),
+          )}
         </nav>
 
         <div className="flex items-center gap-2">
-          <a
-            href={site.bookingUrl}
-            className="hidden rounded-full bg-ink px-5 py-3 text-[17px] font-bold text-white transition-colors hover:bg-black sm:inline-flex"
+          <Link
+            href={contact.cta.href}
+            className="hidden items-center gap-2 rounded-xl bg-dark px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-dark-2 sm:inline-flex"
           >
-            Book a call
-          </a>
+            {contact.cta.label} <Arrow className="text-gold" />
+          </Link>
           <button
             type="button"
-            className="grid size-12 place-items-center rounded-full bg-chip lg:hidden"
+            className="grid size-11 place-items-center rounded-xl bg-bg ring-1 ring-line lg:hidden"
             onClick={() => setMobileOpen((o) => !o)}
             aria-expanded={mobileOpen}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
             <svg width="18" height="18" viewBox="0 0 16 16" aria-hidden>
               {mobileOpen ? (
-                <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+                <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
               ) : (
-                <path d="M2 5h12M2 11h12" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+                <path d="M2 5h12M2 11h12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
               )}
             </svg>
           </button>
@@ -117,29 +116,28 @@ export function Nav() {
       </div>
 
       {mobileOpen && (
-        <div className="fixed inset-x-3 top-[88px] bottom-3 overflow-y-auto rounded-[28px] border border-line bg-card p-5 shadow-2xl lg:hidden">
-          {groups.map((g) => (
-            <div key={g.label} className="mb-5">
-              <p className="mb-2 text-xs font-bold uppercase tracking-[0.08em] text-muted">{g.label}</p>
-              <div className="flex flex-wrap gap-2">
-                {g.items.map((s) => (
-                  <a key={s.title} href={s.href ?? "#services"} onClick={() => setMobileOpen(false)} className="rounded-full bg-chip px-3.5 py-2 text-sm font-semibold">
-                    {s.title}
-                  </a>
-                ))}
-              </div>
-            </div>
-          ))}
-          <div className="mb-6 flex flex-col border-t border-line">
-            {site.nav.map((l) => (
-              <a key={l.label} href={l.href} onClick={() => setMobileOpen(false)} className="border-b border-line py-4 text-2xl font-extrabold tracking-tight">
-                {l.label}
-              </a>
+        <div className="fixed inset-x-3 top-[84px] bottom-3 overflow-y-auto rounded-2xl border border-line bg-card p-5 shadow-2xl lg:hidden">
+          <div className="flex flex-col">
+            {nav
+              .filter((l) => !l.children)
+              .map((l) => (
+                <Link key={l.label} href={l.href} className="border-b border-line py-4 text-xl font-bold tracking-tight">
+                  {l.label}
+                </Link>
+              ))}
+          </div>
+          <p className="mt-6 mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted">Industries</p>
+          <div className="flex flex-col gap-2">
+            {industries.items.map((ind) => (
+              <Link key={ind.slug} href={`/industries/${ind.slug}`} className="rounded-xl bg-bg p-3 ring-1 ring-line">
+                <span className="block font-semibold">{ind.name}</span>
+                <span className="block text-sm text-muted">{ind.short}</span>
+              </Link>
             ))}
           </div>
-          <a href={site.bookingUrl} onClick={() => setMobileOpen(false)} className="flex justify-center rounded-full bg-ink px-5 py-4 font-bold text-white">
-            Book a call
-          </a>
+          <Link href={contact.cta.href} className="mt-6 flex items-center justify-center gap-2 rounded-xl bg-dark px-5 py-4 font-semibold text-white">
+            {contact.cta.label} <Arrow className="text-gold" />
+          </Link>
         </div>
       )}
     </header>
