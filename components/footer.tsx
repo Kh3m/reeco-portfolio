@@ -15,12 +15,12 @@ export function Footer() {
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
               {site.email && (
-                <a href={`mailto:${site.email}`} className="inline-flex items-center gap-2 text-[15px] text-white/80 hover:text-gold">
+                <a href={`mailto:${site.email}`} className="inline-flex items-center gap-2 text-[15px] text-white/80 hover:text-gold-ink">
                   <Icon name="mail" className="size-4" /> {site.email}
                 </a>
               )}
               {site.linkedin && (
-                <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-[15px] text-white/80 hover:text-gold">
+                <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-[15px] text-white/80 hover:text-gold-ink">
                   <Icon name="linkedin" className="size-4" /> LinkedIn
                 </a>
               )}
@@ -44,7 +44,7 @@ export function Footer() {
 function FooterCol({ title, links }: { title: string; links: { label: string; href: string }[] }) {
   return (
     <div>
-      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">{title}</p>
+      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold-ink">{title}</p>
       <ul className="mt-4 space-y-2.5">
         {links.map((l) => (
           <li key={l.label}>

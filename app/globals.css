@@ -6,7 +6,9 @@
   --dark-2: #252932; /* secondary dark — dark cards, feature sections */
   --bg: #f7f6f2; /* warm background — main light sections */
   --card: #ffffff;
-  --gold: #d8c29b; /* champagne gold — highlights, accents, buttons */
+  --gold: #d4af37; /* brand gold — fills, buttons, accents on dark */
+  --gold-deep: #7a5c0f; /* deeper gold — readable gold text on light */
+  --gold-ink: var(--gold-deep); /* gold for text/icons; switches per surface below */
   --ink: #202329; /* primary text */
   --muted: #73777e; /* secondary text */
   --line: #e6e4df; /* borders, dividers */
@@ -18,6 +20,7 @@
   --color-bg: var(--bg);
   --color-card: var(--card);
   --color-gold: var(--gold);
+  --color-gold-ink: var(--gold-ink);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-line: var(--line);
@@ -56,6 +59,10 @@ body {
   html { scroll-behavior: auto; }
   .js .reveal { opacity: 1; transform: none; transition: none; }
 }
+
+/* Gold text adapts to its surface: bright on dark, deep on light. */
+.bg-dark, .bg-dark-2 { --gold-ink: var(--gold); }
+.bg-bg, .bg-card, .bg-white { --gold-ink: var(--gold-deep); }
 
 details > summary { list-style: none; }
 details > summary::-webkit-details-marker { display: none; }

@@ -85,7 +85,7 @@ export default function WorkPage() {
                     )}
                     {p.link && (
                       <a href={p.link.href} target="_blank" rel="noopener noreferrer" className="group mt-6 inline-flex items-center gap-1.5 font-semibold">
-                        {p.link.label} <Arrow className="text-gold transition-transform group-hover:translate-x-1" />
+                        {p.link.label} <Arrow className="text-gold-ink transition-transform group-hover:translate-x-1" />
                       </a>
                     )}
                   </div>

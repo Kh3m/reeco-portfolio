@@ -32,7 +32,7 @@ export function Accent({ text, className }: { text: string; className: string })
 
 export function Eyebrow({ children, dark = false }: { children: ReactNode; dark?: boolean }) {
   return (
-    <p className={`flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.16em] ${dark ? "text-gold" : "text-muted"}`}>
+    <p className={`flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.16em] ${dark ? "text-gold-ink" : "text-muted"}`}>
       <span className="h-px w-6 bg-gold" aria-hidden />
       {children}
     </p>
@@ -102,7 +102,7 @@ export function Button({
 
 export function TextLink({ href, children, dark = false }: { href: string; children: ReactNode; dark?: boolean }) {
   return (
-    <Link href={href} className={`group inline-flex items-center gap-1.5 text-[15px] font-semibold ${dark ? "text-gold" : "text-ink"}`}>
+    <Link href={href} className={`group inline-flex items-center gap-1.5 text-[15px] font-semibold ${dark ? "text-gold-ink" : "text-ink"}`}>
       <span className={`border-b ${dark ? "border-gold/40" : "border-gold"} pb-0.5`}>{children}</span>
       <Arrow className="transition-transform group-hover:translate-x-0.5" />
     </Link>
@@ -119,7 +119,7 @@ export function Arrow({ className = "" }: { className?: string }) {
 
 export type IconName =
   | "inbox" | "route" | "link" | "eye" | "chart" | "users" | "zap" | "refresh" | "layers"
-  | "check" | "mail" | "linkedin" | "search" | "pen" | "settings" | "trend" | "home" | "sparkle" | "tool";
+  | "check" | "mail" | "linkedin" | "search" | "pen" | "settings" | "trend" | "home" | "sparkle" | "tool" | "phone" | "pin";
 
 const paths: Record<IconName, ReactNode> = {
   inbox: <><path d="M22 12h-6l-2 3h-4l-2-3H2" /><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" /></>,
@@ -140,6 +140,8 @@ const paths: Record<IconName, ReactNode> = {
   trend: <path d="m3 17 6-6 4 4 8-8M15 7h6v6" />,
   home: <><path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V10z" /><path d="M9 22V12h6v10" /></>,
   sparkle: <path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4L12 3zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z" />,
+  phone: <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z" />,
+  pin: <><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" /><circle cx="12" cy="10" r="3" /></>,
   tool: <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />,
 };
 
@@ -153,7 +155,7 @@ export function Icon({ name, className = "size-5" }: { name: IconName; className
 
 export function IconTile({ name, dark = false }: { name: IconName; dark?: boolean }) {
   return (
-    <span className={`grid size-11 shrink-0 place-items-center rounded-xl ${dark ? "bg-white/[0.06] text-gold ring-1 ring-white/10" : "bg-bg text-ink ring-1 ring-line"}`}>
+    <span className={`grid size-11 shrink-0 place-items-center rounded-xl ${dark ? "bg-white/[0.06] text-gold-ink ring-1 ring-white/10" : "bg-bg text-ink ring-1 ring-line"}`}>
       <Icon name={name} className="size-5" />
     </span>
   );
@@ -168,7 +170,7 @@ export function Logo({ dark = false }: { dark?: boolean }) {
         </svg>
       </span>
       <span>
-        Ree<span className="text-gold">Co</span>
+        Ree<span className="text-gold-ink">Co</span>
       </span>
     </span>
   );
@@ -193,7 +195,7 @@ export function Checklist({ items, dark = false }: { items: string[]; dark?: boo
     <ul className="space-y-2.5">
       {items.map((t) => (
         <li key={t} className={`flex gap-3 text-[15px] leading-relaxed ${dark ? "text-white/80" : "text-ink"}`}>
-          <Icon name="check" className="mt-[3px] size-4 shrink-0 text-gold" />
+          <Icon name="check" className="mt-[3px] size-4 shrink-0 text-gold-ink" />
           {t}
         </li>
       ))}

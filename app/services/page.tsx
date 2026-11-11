@@ -33,7 +33,7 @@ export default function ServicesPage() {
                   <div className="border-b border-line p-7 sm:p-10 lg:border-b-0 lg:border-r">
                     <div className="flex items-center gap-3">
                       <IconTile name={s.icon} />
-                      <span className="text-sm font-semibold text-gold">0{i + 1}</span>
+                      <span className="text-sm font-semibold text-gold-ink">0{i + 1}</span>
                     </div>
                     <h2 className="mt-5 text-2xl font-bold tracking-tight sm:text-[1.9rem]">{s.title}</h2>
                     <p className="mt-3 text-[17px] leading-relaxed text-muted">{s.summary}</p>
@@ -48,7 +48,7 @@ export default function ServicesPage() {
                     <ol className="mt-4 space-y-3">
                       {s.approach.map((a, k) => (
                         <li key={a} className="flex gap-3 text-[15px] leading-relaxed">
-                          <span className="grid size-6 shrink-0 place-items-center rounded-full bg-dark text-xs font-bold text-gold">{k + 1}</span>
+                          <span className="grid size-6 shrink-0 place-items-center rounded-full bg-dark text-xs font-bold text-gold-ink">{k + 1}</span>
                           {a}
                         </li>
                       ))}

@@ -3,6 +3,7 @@ import { Manrope } from "next/font/google";
 import { site } from "@/content/site";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { WorkWithMe } from "@/components/sections";
 import "./globals.css";
 
 const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"] });
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-screen flex-col font-sans">
         <Nav />
         <main className="flex-1">{children}</main>
+        <WorkWithMe />
         <Footer />
       </body>
     </html>

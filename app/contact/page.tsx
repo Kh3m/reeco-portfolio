@@ -20,7 +20,7 @@ export default function ContactPage() {
           <ul className="mt-8 space-y-3">
             {contact.expectations.map((e) => (
               <li key={e} className="flex gap-3 text-[15px] text-white/80">
-                <Icon name="check" className="mt-0.5 size-5 shrink-0 text-gold" />
+                <Icon name="check" className="mt-0.5 size-5 shrink-0 text-gold-ink" />
                 {e}
               </li>
             ))}
@@ -28,7 +28,7 @@ export default function ContactPage() {
           {site.email && (
             <p className="mt-8 border-t border-white/10 pt-6 text-[15px] text-white/60">
               Prefer email?{" "}
-              <a href={`mailto:${site.email}`} className="font-semibold text-gold hover:underline">
+              <a href={`mailto:${site.email}`} className="font-semibold text-gold-ink hover:underline">
                 {site.email}
               </a>
             </p>

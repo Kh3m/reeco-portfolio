@@ -21,11 +21,11 @@ export default function Image() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", fontSize: 40, fontWeight: 700 }}>
-          Ree<span style={{ color: "#D8C29B" }}>Co</span>
+          Ree<span style={{ color: "#D4AF37" }}>Co</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 64, fontWeight: 700, lineHeight: 1.1, maxWidth: 980 }}>Turn more enquiries into customers.</div>
-          <div style={{ fontSize: 64, fontWeight: 700, lineHeight: 1.1, color: "#D8C29B", maxWidth: 980 }}>Keep more customers coming back.</div>
+          <div style={{ fontSize: 64, fontWeight: 700, lineHeight: 1.1, color: "#D4AF37", maxWidth: 980 }}>Keep more customers coming back.</div>
         </div>
         <div style={{ display: "flex", fontSize: 26, color: "rgba(255,255,255,0.65)", borderTop: "1px solid #252932", paddingTop: 28 }}>
           Revenue Operations & Automation · Real estate · MedSpas · Home services

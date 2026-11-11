@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { contact, founder, hero, industries, problems, process, services, work, type Industry } from "@/content/site";
+import { about, contact, founder, hero, industries, problems, process, services, site, video, work, type Industry } from "@/content/site";
 import { Reveal } from "./client-bits";
 import { HeroFollowCard, HeroLeadCard, Preview } from "./previews";
 import { Accent, Arrow, Button, Checklist, Container, Eyebrow, Icon, IconTile, SectionHeading, TextLink, TypeBadge, type IconName } from "./ui";
@@ -16,7 +16,7 @@ export function FounderPortrait({ withCards = true, className = "" }: { withCard
         <img src={founder.portrait} alt={founder.portraitAlt} className="size-full object-cover object-[50%_20%]" />
         <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-5 pt-16">
           <p className="font-semibold text-white">{founder.name || founder.role}</p>
-          {founder.name && <p className="text-sm text-gold">{founder.role}</p>}
+          {founder.name && <p className="text-sm text-gold-ink">{founder.role}</p>}
         </div>
       </div>
       {withCards && (
@@ -45,11 +45,11 @@ function SystemOverview() {
   return (
     <div className="relative mx-auto w-full max-w-[460px]">
       <div className="rounded-3xl border border-white/10 bg-dark-2 p-5 sm:p-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">Lead-to-customer system</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold-ink">Lead-to-customer system</p>
         <ol className="mt-5 space-y-2.5">
           {stages.map((s, i) => (
             <li key={s.t} className="flex items-center gap-3 rounded-2xl border border-white/[0.07] bg-white/[0.03] p-3">
-              <span className={`grid size-10 shrink-0 place-items-center rounded-xl ${i === 2 ? "bg-gold text-dark" : "bg-white/[0.06] text-gold"}`}>
+              <span className={`grid size-10 shrink-0 place-items-center rounded-xl ${i === 2 ? "bg-gold text-dark" : "bg-white/[0.06] text-gold-ink"}`}>
                 <Icon name={s.icon} className="size-[18px]" />
               </span>
               <div>
@@ -76,7 +76,7 @@ export function HomeHero() {
         <div>
           <Eyebrow dark>{hero.eyebrow}</Eyebrow>
           <h1 className="mt-6 text-[2.35rem] font-bold leading-[1.1] tracking-[-0.03em] sm:text-5xl lg:text-[3.4rem]">
-            <Accent text={hero.headline} className="text-gold" />
+            <Accent text={hero.headline} className="text-gold-ink" />
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/70">{hero.sub}</p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -90,12 +90,109 @@ export function HomeHero() {
             {hero.focus.map((f, i) => (
               <span key={f} className="font-semibold text-white/85">
                 {f}
-                {i < hero.focus.length - 1 && <span className="ml-3 text-gold">·</span>}
+                {i < hero.focus.length - 1 && <span className="ml-3 text-gold-ink">·</span>}
               </span>
             ))}
           </div>
         </div>
         {founder.portrait ? <FounderPortrait /> : <SystemOverview />}
+      </Container>
+    </section>
+  );
+}
+
+/* ── Founder intro: short vertical video beside a bio ─── */
+
+export function FounderIntro({ className = "" }: { className?: string }) {
+  if (!video.src) return null;
+  return (
+    <section className={`py-16 sm:py-20 ${className}`}>
+      <Container className="grid items-center gap-10 md:grid-cols-[minmax(0,300px)_1fr] lg:gap-16">
+        <div className="mx-auto w-full max-w-[300px]">
+          <video
+            controls
+            playsInline
+            preload="metadata"
+            poster={video.poster || undefined}
+            className="aspect-[3/5] w-full rounded-2xl border border-line bg-dark object-cover shadow-[0_20px_50px_-25px_rgba(23,25,29,0.45)]"
+            aria-label={video.title}
+          >
+            <source src={video.src} type="video/mp4" />
+            {video.captions && <track kind="captions" src={video.captions} srcLang="en" label="English" default />}
+          </video>
+          {video.transcript && (
+            <details className="mt-3 rounded-xl border border-line bg-card p-4">
+              <summary className="cursor-pointer text-sm font-semibold">Read the transcript</summary>
+              <p className="mt-3 whitespace-pre-line text-sm leading-relaxed text-muted">{video.transcript}</p>
+            </details>
+          )}
+        </div>
+        <div className="max-w-xl">
+          <Eyebrow>{video.title}</Eyebrow>
+          <h2 className="mt-4 text-3xl font-bold leading-tight tracking-[-0.025em] sm:text-[2.4rem]">
+            {founder.name ? `Hi, I'm ${founder.name}.` : video.title}
+          </h2>
+          <p className="mt-2 text-sm font-semibold uppercase tracking-[0.14em] text-gold-ink">{founder.role}</p>
+          <div className="mt-5 space-y-4 text-[17px] leading-relaxed text-muted">
+            {about.paragraphs.slice(0, 2).map((p) => (
+              <p key={p}>{p}</p>
+            ))}
+          </div>
+          <div className="mt-7">
+            <TextLink href="/about">More about ReeCo</TextLink>
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* ── Work with me: contact details above the footer ───── */
+
+export function WorkWithMe() {
+  const items = [
+    site.location && { icon: "pin" as IconName, label: "Address", value: site.location },
+    site.phone && { icon: "phone" as IconName, label: "Phone", value: site.phone, href: `tel:${site.phone.replace(/\s/g, "")}` },
+    site.email && { icon: "mail" as IconName, label: "Email", value: site.email, href: `mailto:${site.email}` },
+  ].filter(Boolean) as { icon: IconName; label: string; value: string; href?: string }[];
+  if (!items.length) return null;
+  return (
+    <section className="overflow-hidden border-t border-line bg-gold/15">
+      <Container className={`grid items-end gap-10 pt-16 sm:pt-20 ${founder.portrait ? "lg:grid-cols-[1.3fr_1fr]" : "pb-16 sm:pb-20"}`}>
+        <div className={founder.portrait ? "pb-4 lg:pb-20" : ""}>
+          <h2 className="text-4xl font-bold tracking-[-0.03em] sm:text-5xl">Work with me</h2>
+          <dl className="mt-10 grid gap-7 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+            {items.map((it) => (
+              <div key={it.label}>
+                <dt className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-gold-ink">
+                  <Icon name={it.icon} className="size-4" /> {it.label}
+                </dt>
+                <dd className="mt-2 text-[17px] font-medium">
+                  {it.href ? (
+                    <a href={it.href} className="break-words underline-offset-4 hover:underline">
+                      {it.value}
+                    </a>
+                  ) : (
+                    it.value
+                  )}
+                </dd>
+              </div>
+            ))}
+          </dl>
+          <div className="mt-10">
+            <Button href={contact.cta.href} variant="dark">
+              {contact.cta.label}
+            </Button>
+          </div>
+        </div>
+        {founder.portrait && (
+          <div className="relative mx-auto w-full max-w-[360px] lg:mr-0">
+            <div className="aspect-[4/5] overflow-hidden rounded-t-[28px] bg-card">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={founder.portrait} alt={founder.portraitAlt} loading="lazy" className="size-full object-cover object-top" />
+            </div>
+          </div>
+        )}
       </Container>
     </section>
   );
@@ -114,7 +211,7 @@ export function Problems() {
               <div className="h-full rounded-2xl border border-line bg-card p-6">
                 <div className="flex items-center justify-between">
                   <IconTile name={p.icon as IconName} />
-                  <span className="text-sm font-semibold text-gold">0{i + 1}</span>
+                  <span className="text-sm font-semibold text-gold-ink">0{i + 1}</span>
                 </div>
                 <h3 className="mt-5 text-lg font-bold tracking-tight">{p.title}</h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-muted">{p.desc}</p>
@@ -150,7 +247,7 @@ export function ServicesOverview() {
               >
                 <div className="flex items-center justify-between">
                   <IconTile name={s.icon} dark={i === 0} />
-                  <Arrow className={`transition-transform group-hover:translate-x-1 ${i === 0 ? "text-gold" : "text-muted"}`} />
+                  <Arrow className={`transition-transform group-hover:translate-x-1 ${i === 0 ? "text-gold-ink" : "text-muted"}`} />
                 </div>
                 <h3 className="mt-5 text-xl font-bold tracking-tight">{s.title}</h3>
                 <p className={`mt-2 text-[15px] leading-relaxed ${i === 0 ? "text-white/70" : "text-muted"}`}>{s.summary}</p>
@@ -194,11 +291,11 @@ export function IndustriesSection({ showHeading = true }: { showHeading?: boolea
                   {ind.journey.map((j, k) => (
                     <span key={j.stage} className="inline-flex items-center gap-1.5 text-xs text-white/60">
                       <span className="rounded-full border border-white/10 px-2.5 py-1">{j.stage}</span>
-                      {k < ind.journey.length - 1 && <span className="text-gold/70">→</span>}
+                      {k < ind.journey.length - 1 && <span className="text-gold-ink/70">→</span>}
                     </span>
                   ))}
                 </div>
-                <span className="mt-auto inline-flex items-center gap-1.5 pt-7 text-[15px] font-semibold text-gold">
+                <span className="mt-auto inline-flex items-center gap-1.5 pt-7 text-[15px] font-semibold text-gold-ink">
                   Explore {ind.name.toLowerCase()} <Arrow className="transition-transform group-hover:translate-x-1" />
                 </span>
               </Link>
@@ -223,7 +320,7 @@ export function ProcessSection({ className = "" }: { className?: string }) {
             <Reveal key={s.title} delay={i * 70}>
               <li className="relative h-full rounded-2xl border border-line bg-card p-6">
                 <div className="flex items-center gap-3">
-                  <span className="grid size-9 place-items-center rounded-full bg-dark text-sm font-bold text-gold">{i + 1}</span>
+                  <span className="grid size-9 place-items-center rounded-full bg-dark text-sm font-bold text-gold-ink">{i + 1}</span>
                   <span className="h-px flex-1 bg-line" aria-hidden />
                   <Icon name={icons[i]} className="size-5 text-muted" />
                 </div>
@@ -258,7 +355,7 @@ export function WorkGrid({ limit }: { limit?: number }) {
               <h3 className="mt-3 text-xl font-bold tracking-tight">{p.name}</h3>
               <p className="mt-2 text-[15px] leading-relaxed text-muted">{p.summary}</p>
               <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-[15px] font-semibold">
-                View the approach <Arrow className="text-gold transition-transform group-hover:translate-x-1" />
+                View the approach <Arrow className="text-gold-ink transition-transform group-hover:translate-x-1" />
               </span>
             </div>
           </Link>

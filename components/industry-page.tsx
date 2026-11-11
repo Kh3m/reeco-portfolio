@@ -51,7 +51,7 @@ export function IndustryPage({ slug }: { slug: IndustrySlug }) {
             {ind.journey.map((j, i) => (
               <Reveal key={j.stage} delay={i * 60}>
                 <li className="relative h-full rounded-2xl border border-line bg-card p-5">
-                  <span className="text-sm font-bold text-gold">0{i + 1}</span>
+                  <span className="text-sm font-bold text-gold-ink">0{i + 1}</span>
                   <h3 className="mt-2 font-bold tracking-tight">{j.stage}</h3>
                   <p className="mt-1.5 text-sm leading-relaxed text-muted">{j.detail}</p>
                 </li>
@@ -81,7 +81,7 @@ export function IndustryPage({ slug }: { slug: IndustrySlug }) {
               {ind.solutions.map((s, i) => (
                 <Reveal key={s.title} delay={(i % 2) * 60}>
                   <div className="h-full rounded-2xl border border-line p-5">
-                    <Icon name="check" className="size-5 text-gold" />
+                    <Icon name="check" className="size-5 text-gold-ink" />
                     <h3 className="mt-3 font-bold tracking-tight">{s.title}</h3>
                     <p className="mt-1.5 text-sm leading-relaxed text-muted">{s.desc}</p>
                   </div>
@@ -101,7 +101,7 @@ export function IndustryPage({ slug }: { slug: IndustrySlug }) {
                 <TypeBadge type={project.type} dark />
                 <h2 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">{project.name}</h2>
                 <p className="mt-3 text-[17px] leading-relaxed text-white/70">{project.summary}</p>
-                <Link href={`/work#${project.slug}`} className="group mt-6 inline-flex items-center gap-1.5 font-semibold text-gold">
+                <Link href={`/work#${project.slug}`} className="group mt-6 inline-flex items-center gap-1.5 font-semibold text-gold-ink">
                   See the full walkthrough <Arrow className="transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
@@ -121,7 +121,7 @@ export function IndustryPage({ slug }: { slug: IndustrySlug }) {
                   <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">Also see</p>
                   <p className="mt-1 text-lg font-bold">{o.name}</p>
                 </div>
-                <Arrow className="text-gold transition-transform group-hover:translate-x-1" />
+                <Arrow className="text-gold-ink transition-transform group-hover:translate-x-1" />
               </Link>
             ))}
           </div>

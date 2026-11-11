@@ -81,7 +81,7 @@ export function MedspaJourney() {
         {steps.map((s, i) => (
           <li key={s.t} className="relative flex gap-3 pb-4 last:pb-0">
             {i < steps.length - 1 && <span className="absolute left-[17px] top-9 bottom-0 w-px bg-line" aria-hidden />}
-            <span className={`relative grid size-9 shrink-0 place-items-center rounded-lg ${i === 0 ? "bg-dark text-gold" : "bg-bg text-ink ring-1 ring-line"}`}>
+            <span className={`relative grid size-9 shrink-0 place-items-center rounded-lg ${i === 0 ? "bg-dark text-gold-ink" : "bg-bg text-ink ring-1 ring-line"}`}>
               <Icon name={s.icon} className="size-4" />
             </span>
             <div className="min-w-0 flex-1 rounded-xl border border-line p-2.5">

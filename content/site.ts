@@ -8,7 +8,9 @@ export const site = {
   brand: "ReeCo",
   tagline: "Revenue Operations & Automation",
   url: "https://reeco-portfolio-two.vercel.app",
-  email: "", // public business email, e.g. "hello@reeco.co" — shown in the footer and contact page when set
+  email: "faridat@reecoo.com",
+  phone: "+234 813 473 3282",
+  location: "Abuja, Nigeria",
   linkedin: "", // e.g. "https://www.linkedin.com/in/…"
   seo: {
     title: "ReeCo — Revenue Operations & Automation for Service Businesses",
@@ -19,16 +21,16 @@ export const site = {
 };
 
 export const founder = {
-  name: "", // e.g. "Jane Doe" — when empty the site says "Founder, ReeCo"
+  name: "Faridat", // full name shown under the portrait
   role: "Founder, ReeCo",
-  portrait: "", // e.g. "/founder.jpg" (portrait orientation, at least 1200px tall)
+  portrait: "/founder/portrait.jpg",
   portraitAlt: "Portrait of the founder of ReeCo",
 };
 
 /** Founder introduction video (About page). Hidden until `src` is set. */
 export const video = {
-  src: "", // e.g. "/video/founder-intro.mp4" (H.264 MP4, ideally under 20 MB)
-  poster: "", // e.g. "/video/founder-intro-poster.jpg"
+  src: "/founder/intro.mp4",
+  poster: "/founder/intro-poster.jpg",
   captions: "", // e.g. "/video/founder-intro.vtt"
   title: "Meet the founder",
   description: "A short introduction to ReeCo, how we approach client work and the kinds of problems we like to solve.",

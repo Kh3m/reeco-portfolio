@@ -169,7 +169,7 @@ export function ContactForm() {
       >
         {pending ? "Sending…" : "Send enquiry"}
         {!pending && (
-          <Arrow className="text-gold transition-transform group-hover:translate-x-0.5" />
+          <Arrow className="text-gold-ink transition-transform group-hover:translate-x-0.5" />
         )}
       </button>
     </form>

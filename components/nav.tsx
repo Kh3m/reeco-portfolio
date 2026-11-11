@@ -95,7 +95,7 @@ export function Nav() {
             href={contact.cta.href}
             className="hidden items-center gap-2 rounded-xl bg-dark px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-dark-2 sm:inline-flex"
           >
-            {contact.cta.label} <Arrow className="text-gold" />
+            {contact.cta.label} <Arrow className="text-gold-ink" />
           </Link>
           <button
             type="button"
@@ -136,7 +136,7 @@ export function Nav() {
             ))}
           </div>
           <Link href={contact.cta.href} className="mt-6 flex items-center justify-center gap-2 rounded-xl bg-dark px-5 py-4 font-semibold text-white">
-            {contact.cta.label} <Arrow className="text-gold" />
+            {contact.cta.label} <Arrow className="text-gold-ink" />
           </Link>
         </div>
       )}
