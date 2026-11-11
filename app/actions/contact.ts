@@ -19,7 +19,7 @@ export type ContactState = {
   values?: Partial<Record<Field, string>>;
 };
 
-type Field = "name" | "email" | "company" | "industry" | "need" | "message";
+type Field = "name" | "email" | "company" | "industry" | "need";
 
 const MIN_FILL_MS = 3000; // humans take longer than this to complete the form
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -33,7 +33,6 @@ export async function submitEnquiry(_prev: ContactState, formData: FormData): Pr
     company: clean(formData.get("company"), 160),
     industry: clean(formData.get("industry"), 80),
     need: clean(formData.get("need"), 80),
-    message: clean(formData.get("message"), 4000),
   };
 
   // Spam protection: hidden honeypot field + minimum time on page.
@@ -49,7 +48,6 @@ export async function submitEnquiry(_prev: ContactState, formData: FormData): Pr
   if (!EMAIL_RE.test(values.email)) errors.email = "Please enter a valid business email.";
   if (!values.industry) errors.industry = "Please choose your industry.";
   if (!values.need) errors.need = "Please choose what you need help with.";
-  if (values.message.length < 10) errors.message = "Please add a sentence or two about the challenge.";
   if (Object.keys(errors).length) {
     return { status: "error", message: "Please check the highlighted fields.", errors, values };
   }
@@ -88,8 +86,6 @@ export async function submitEnquiry(_prev: ContactState, formData: FormData): Pr
       `Company: ${values.company || "—"}`,
       `Industry: ${values.industry}`,
       `Needs help with: ${values.need}`,
-      "",
-      values.message,
     ].join("\n");
     tasks.push(
       fetch("https://api.resend.com/emails", {
