@@ -8,10 +8,11 @@ export const site = {
   brand: "ReeCo",
   tagline: "Revenue Operations & Automation",
   url: "https://reeco-portfolio-two.vercel.app",
-  email: "faridat@reecoo.com",
+  email: "faridat@reecomarketing.com",
+  emailAlt: "faridatarogundade704@gmail.com", // second email, shown in the "Work with me" section
   phone: "+234 813 473 3282",
   location: "Abuja, Nigeria",
-  linkedin: "", // e.g. "https://www.linkedin.com/in/…"
+  linkedin: "https://www.linkedin.com/in/faridat-arogundade-91bbb8125",
   seo: {
     title: "ReeCo — Revenue Operations & Automation for Service Businesses",
     description:
@@ -21,7 +22,7 @@ export const site = {
 };
 
 export const founder = {
-  name: "Faridat", // full name shown under the portrait
+  name: "Faridat Arogundade", // full name shown under the portrait
   role: "Founder, ReeCo",
   portrait: "/founder/portrait.jpg",
   portraitAlt: "Portrait of the founder of ReeCo",

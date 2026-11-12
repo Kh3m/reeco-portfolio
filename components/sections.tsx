@@ -130,7 +130,7 @@ export function FounderIntro({ className = "" }: { className?: string }) {
         <div className="max-w-xl">
           <Eyebrow>{video.title}</Eyebrow>
           <h2 className="mt-4 text-3xl font-bold leading-tight tracking-[-0.025em] sm:text-[2.4rem]">
-            {founder.name ? `Hi, I'm ${founder.name}.` : video.title}
+            {founder.name ? `Hi, I'm ${founder.name.split(" ")[0]}.` : video.title}
           </h2>
           <p className="mt-2 text-sm font-semibold uppercase tracking-[0.14em] text-gold-ink">{founder.role}</p>
           <div className="mt-5 space-y-4 text-[17px] leading-relaxed text-muted">
@@ -153,15 +153,15 @@ export function WorkWithMe() {
   const items = [
     site.location && { icon: "pin" as IconName, label: "Address", value: site.location },
     site.phone && { icon: "phone" as IconName, label: "Phone", value: site.phone, href: `tel:${site.phone.replace(/\s/g, "")}` },
-    site.email && { icon: "mail" as IconName, label: "Email", value: site.email, href: `mailto:${site.email}` },
-  ].filter(Boolean) as { icon: IconName; label: string; value: string; href?: string }[];
+    site.email && { icon: "mail" as IconName, label: "Email", value: site.email, href: `mailto:${site.email}`, alt: site.emailAlt },
+  ].filter(Boolean) as { icon: IconName; label: string; value: string; href?: string; alt?: string }[];
   if (!items.length) return null;
   return (
     <section className="overflow-hidden border-t border-line bg-gold/15">
       <Container className={`grid items-end gap-10 pt-16 sm:pt-20 ${founder.portrait ? "lg:grid-cols-[1.3fr_1fr]" : "pb-16 sm:pb-20"}`}>
         <div className={founder.portrait ? "pb-4 lg:pb-20" : ""}>
           <h2 className="text-4xl font-bold tracking-[-0.03em] sm:text-5xl">Work with me</h2>
-          <dl className="mt-10 grid gap-7 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+          <dl className="mt-10 grid gap-x-10 gap-y-7 sm:grid-cols-[auto_auto_1fr] lg:grid-cols-1 xl:grid-cols-[auto_auto_1fr]">
             {items.map((it) => (
               <div key={it.label}>
                 <dt className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-gold-ink">
@@ -174,6 +174,11 @@ export function WorkWithMe() {
                     </a>
                   ) : (
                     it.value
+                  )}
+                  {it.alt && (
+                    <a href={`mailto:${it.alt}`} className="mt-1 block break-words underline-offset-4 hover:underline">
+                      {it.alt}
+                    </a>
                   )}
                 </dd>
               </div>
